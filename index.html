@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Change a map's style</title>
+
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+
+    <script src="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css" rel="stylesheet" />
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.5.1/mapbox-gl-geocoder.min.js"></script>
+    <link
+    rel="stylesheet"
+    href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.5.1/mapbox-gl-geocoder.css"
+    type="text/css"
+    />
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <ul class="navbar-nav mr-auto d-flex">
+
+      <a class="nav-link navbar-brand" href="#">MM</a>
+      <li class="nav-item active mx-1" id="location">
+        
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#" data-target="#checkout" id="toggle-checkout">
+            Cart <span class="badge badge-primary ml-1">0</span>
+            <span class="sr-only">items</span>
+        </a>
+      </li>
+    </ul>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-7 map-container">
+            <div id="map"></div>
+        </div>
+
+        <div class="col-md-5" id="section-options ">
+                <div class="accordion" id="accordionExample">
+                    <!-- Styles section -->
+                    <div class="card">
+                    <div class="card-header" id="styles">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                Styles
+                            </button>
+                        </h2>
+
+                    </div>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                        <div class="card-body">
+                            <figure class="styles">
+                                <img src="pencil.PNG" alt="" srcset="" id="Pencil" class="img active" data-style="ckdudgjow12jd19prca4m3p1a">
+                                <figcaption>Pencil</figcaption>
+                            </figure>
+
+                            <figure class="styles" data-style="pencil_2">
+                                <img src="teal.PNG" alt="" srcset="" id="Teal" class="img" data-style="ckdvhhd7i0rcp19nwbpy3opob">
+                                <figcaption>Teal</figcaption>
+                            </figure>
+
+                            <figure class="styles" data-style="pencil_3">
+                                <img src="blue.PNG" alt="" srcset="" id="Blue" class="img" data-style="ckd0mluv8166l1ilim6zkg2h4">
+                                <figcaption>Blue</figcaption>
+                            </figure>
+
+                            <figure class="styles" data-style="pencil_3">
+                                <img src="3d.PNG" alt="" srcset="" id="3d-building" class="img" data-style="ck16gv9480bzz1cp7m9nf6tvn">
+                                <figcaption>3d Building</figcaption>
+                            </figure>
+
+                            <figure class="styles" data-style="pencil_3">
+                                <img src="pencil_3.PNG" alt="" srcset="" id="light" class="img" data-style="ckdy29d7q39m319rpiqcohegl">
+                                <figcaption>Light</figcaption>
+                            </figure>
+
+                            <figure class="styles" data-style="pencil_3">
+                                <img src="dark.PNG" alt="" srcset="" id="dark" class="img" data-style="ckdy2bhlh3dgt19o67ozjnq9p">
+                                <figcaption>Dark</figcaption>
+                            </figure>
+
+                        </div>
+                    </div>
+                    </div>
+
+                    <!-- Card styles -->
+                    <div class="card">
+                        <div class="card-header" id="card-style">
+                            <h2 class="mb-0">
+                            <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#cardCollapse" aria-expanded="true" aria-controls="collapseOne">
+                                Card Styles
+                            </button>
+                            </h2>
+                        </div>
+                    
+                        <div id="cardCollapse" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                            <div class="card-body">
+                                <figure class="card-style">
+                                    <img src="3d.PNG" alt="" srcset="" id="card-square" class="img-card card-square" data-style="square">
+                                    <figcaption>Square</figcaption>
+                                </figure>
+
+                                <figure class="card-style">
+                                    <img src="3d.PNG" alt="" srcset="" id="card-oval" class="img-card card-oval" data-style="oval">
+                                    <figcaption>Oval</figcaption>
+                                </figure>
+
+                                <figure class="card-style">
+                                    <img src="3d.PNG" alt="" srcset="" id="card-circle" class="img-card card-circle" data-style="circle">
+                                    <figcaption>Circle</figcaption>
+                                </figure>
+
+                                <figure class="card-style">
+                                    <img src="3d.PNG" alt="" srcset="" id="card-custom" class="img-card card-custom" data-style="custom">
+                                    <figcaption>Custom</figcaption>
+                                </figure>
+
+                                <figure class="card-style">
+                                    <img src="3d.PNG" alt="" srcset="" id="card-deform" class="img-card card-deform" data-style="deform">
+                                    <figcaption>Deform</figcaption>
+                                </figure>
+
+                                <!--  Orientation-->
+                                <div class="container-fluid">
+                                    <h5 class="title">Orientation</h5>
+                                    <button type="button" class="btn btn-outline-secondary btn-sm orientation btn-active">Potrait</button>
+                                    <button type="button" class="btn btn-outline-secondary btn-sm orientation">Land Scape</button>
+                                </div>
+                                
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Emojis -->
+                    <div class="card">
+                        <div class="card-header" id="emoji">
+                            <h2 class="mb-0">
+                            <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#emojiCollapse" aria-expanded="true" aria-controls="collapseOne">
+                                Emojis
+                            </button>
+                            </h2>
+                        </div>
+                    
+                        <div id="emojiCollapse" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                            <div class="card-body">
+                                <div class="section-location" id="location">
+                                    <div class="form-group">
+                                        <label for="formGroupExampleInput">Address</label>
+                                        <input type="text" class="form-control" id="address" placeholder="123th Avenue">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Styles section -->
+                    <div class="card sizes">
+                        <div class="card-header" id="size">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#sizeCollapse" aria-expanded="false" aria-controls="collapseTwo">
+                            Size      
+                            </button>
+                        </h2>
+                        </div>
+                        <div id="sizeCollapse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                        <div class="card-body">
+                                <button type="button" class="btn btn-outline-secondary size">30cmx40cm</button>
+                                <button type="button" class="btn btn-outline-secondary size">50cmx70cm</button>
+                                <button type="button" class="btn btn-outline-secondary size">60cmx80cm</button>
+
+                                <button type="button" class="btn btn-outline-secondary size">16:9 landscape</button>
+                        </div>
+                        </div>
+                    </div>
+
+                    <!-- Description section -->
+                    <div class="card sizes">
+                        <div class="card-header" id="Description">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#descriptionCollapse" aria-expanded="false" aria-controls="collapseTwo">
+                               Description    
+                            </button>
+                        </h2>
+                        </div>
+                        <div id="descriptionCollapse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="name">Name</label>
+                                <input type="email" class="form-control description" name="name" id="name" placeholder="Magerita">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="description">Text</label>
+                                <input type="email" class="form-control description" name="text" id="description" placeholder="Home is Home">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="date">Date</label>
+                                <input type="text" class="form-control description" name="date" id="date" placeholder="12/08/1998">
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <button class="btn btn-primary" id="cart-btn">Add To Cart</button>
+            </div>    
+            
+        </div>
+    </div>
+</div>
+
+<!-- checkout Modal -->
+<div class="modal fade" id="checkout">
+    <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">My Cart</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+                <!-- Cart information -->
+                <div id="cart-info">
+
+                </div>
+                <!-- Payment Method -->
+               
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Checkout</button>
+          </div>
+        </div>
+    </div>
+</div>
+
+<script src="main.js"></script>
+
+</body>
+</html>

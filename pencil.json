@@ -1,0 +1,41 @@
+[
+    "interpolate",
+    ["linear"],
+    ["zoom"],
+    0,
+    [
+      "match",
+      ["get", "class"],
+      "street",
+      "hsl(0, 0%, 65%)",
+      "street_limited",
+      "hsla(0, 0%, 15%, 0.7)",
+      "service",
+      "hsla(0, 0%, 30%, 0)",
+      "track",
+      "hsl(0, 0%, 33%)",
+      "link",
+      "hsla(0, 0%, 15%, 0.7)",
+      ["primary"],
+      "hsl(0, 0%, 23%)",
+      "hsl(0, 0%, 23%)"
+    ],
+    15,
+    [
+      "match",
+      ["get", "class"],
+      "street",
+      "hsl(0, 0%, 60%)",
+      "street_limited",
+      "hsl(0, 0%, 60%)",
+      "service",
+      "hsla(0, 0%, 30%, 0)",
+      "track",
+      "hsl(0, 0%, 33%)",
+      "link",
+      "hsla(0, 0%, 15%, 0.7)",
+      ["primary"],
+      "hsl(0, 0%, 12%)",
+      "hsl(0, 0%, 12%)"
+    ]
+  ]
