@@ -210,8 +210,17 @@ body {
 }
 
 /* checkout-section */
+.cart-item{
+    display: flex;
+    justify-content: space-between;
+}
 
-
+#cart-btn {
+    position: fixed;
+    bottom: 0%;
+    text-align: center;
+    color: white;
+}
 /* Snackbar */
 /* snackbar */
 .snackbar{

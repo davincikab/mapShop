@@ -10,20 +10,21 @@ var map = new mapboxgl.Map({
 // change the styles
 var userSpecification = {
     size:"",
-    style:"",
-    styleName:"",
-    cardStyle:"",
+    style:"mapbox://styles/mapbox/streets-v11",
+    styleName:"streets-v11",
+    cardStyle:"box",
     emojis:[],
-    location:"",
+    location:"Paris",
     description:{
-        name:"",
-        date:"",
-        text:""
+        name:"Magerita",
+        date:"12-03-14",
+        text:"Home Is Home"
     },
     cost:20
 };
 
 var snackBar = document.getElementById('snackbar');
+var badge = document.getElementById("badge");
 var cart = [];
 var emojis = [];
 var cardStyles = {
@@ -36,6 +37,16 @@ var activeEmoji = "🗺️";
 var geocoder = new MapboxGeocoder({
     accessToken: mapboxgl.accessToken,
     mapboxgl: mapboxgl
+});
+
+geocoder.on('result', function(e) {
+    console.log(e);
+    userSpecification.location = e.result.place_name;
+
+    // 
+    setTimeout(function(e) {
+        geocoder.clear();
+    }, 5000);
 });
      
 document.getElementById('location').appendChild(geocoder.onAdd(map));
@@ -100,15 +111,19 @@ sizes.forEach(size => {
 
         this.classList.add('btn-active');
 
-        let printSize = this.innerText;
-        console.log(this.innerText);
-        updatePrintSize(printSize);
+        let txt = this.innerText.split("\n");
+        let printSize = txt[1];
+        let price = txt[0];
+
+        console.log(txt);
+        updatePrintSize(printSize, price);
     });
 });
 
 
-function updatePrintSize(printSize) {
+function updatePrintSize(printSize, price) {
     userSpecification.size = printSize;
+    userSpecification.cost = price;
 }
 
 // Description section
@@ -121,9 +136,10 @@ var textDescription = document.getElementById("text-description");
 descriptionInput.forEach(dInput => {
     dInput.addEventListener("input", function(e) {
         let name = this.name;
+        let element = document.getElementById(name);
 
         userSpecification.description[name] = this.value;
-        console.log(userSpecification);
+        element.innerHTML = this.value;
     });
 });
 
@@ -171,11 +187,14 @@ var addToCartButton = document.getElementById("cart-btn");
 
 addToCartButton.addEventListener("click", function(e) {
     addToCart(userSpecification);
+    // userSpecification
 });
 
 function addToCart(item) {
     if(item.style) {
-        cart.push(cart);
+        cart.push(JSON.parse(JSON.stringify(item)));
+        badge.innerHTML = cart.length;
+        
     } else {
         // snackbar
         toggleSnackBar("Pick a style");
@@ -190,6 +209,8 @@ function removeItemFromCart(item) {
 // Display checkout section
 var cartInfoSection = document.getElementById("cart-info");
 var toggleModalBtn = document.getElementById("toggle-checkout");
+cartInfoSection.innerHTML += "<p class='cart-item'><b>Item</b><b>Cost</b><b>Action</b></p>";
+
 toggleModalBtn.addEventListener("click", function(e) {
     e.preventDefault();
 
@@ -206,9 +227,10 @@ toggleModalBtn.addEventListener("click", function(e) {
 });
 
 function populateCartInfoSection() {
-    cartInfoSection.innerHTML += "<p class='map-item'><b>Item</b><b>Cost</b></p>";
+    cartInfoSection.innerHTML = "";
     cart.forEach(item => {
-        cartInfoSection.innerHTML += "<p clas='map-item'><b>"+item.styleName+"</b></p>";
+        cartInfoSection.innerHTML += "<p class='cart-item'><b>"+item.styleName+"</b><span>"+item.cost+
+            "</span><button class='btn btn-sm btn-danger w-25'>Remove</button</p>";
     });
 
     

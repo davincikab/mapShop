@@ -39,7 +39,7 @@
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#" data-target="#checkout" id="toggle-checkout">
-            Cart <span class="badge badge-primary ml-1">0</span>
+            Cart <span class="badge badge-primary ml-1" id="badge">0</span>
             <span class="sr-only">items</span>
         </a>
       </li>
@@ -50,9 +50,9 @@
     <div class="row">
         <div class="col-md-7 map-container">
             <div class="map-info">  
-                <h4 id="name-text">Magerita</h4>
-                <p id="text-descr">HOME IS HOME</p>
-                <small id="data-descrip">12-03-14</small>
+                <h4 id="name">Magerita</h4>
+                <p id="text">HOME IS HOME</p>
+                <small id="date">12-03-14</small>
             </div>
             <div id="map"></div>
         </div>
@@ -167,12 +167,12 @@
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="name">Name</label>
-                                <input type="email" class="form-control description" name="name" id="name" placeholder="Magerita">
+                                <input type="email" class="form-control description" name="name" placeholder="Magerita">
                             </div>
 
                             <div class="form-group">
                                 <label for="description">Text</label>
-                                <input type="email" class="form-control description" name="text" id="description" placeholder="Home is Home">
+                                <input type="email" class="form-control description" name="text" placeholder="Home is Home">
                             </div>
 
                             <div class="form-group">
@@ -226,8 +226,8 @@
 
                 </div>
 
-                <button class="btn btn-primary" id="preview-btn">Preview Map</button>
-                <button class="btn btn-primary my-3" id="cart-btn">Add To Cart</button>
+                <!-- <button class="btn btn-primary" id="preview-btn">Preview Map</button> -->
+                <button class="btn btn-primary" id="cart-btn">Add To Cart</button>
             </div>    
             
         </div>
