@@ -19,15 +19,18 @@ var userSpecification = {
         name:"",
         date:"",
         text:""
-    }
+    },
+    cost:20
 };
 
-
+var snackBar = document.getElementById('snackbar');
 var cart = [];
 var emojis = [];
 var cardStyles = {
 
 };
+var markers = [];
+var activeEmoji = "🗺️";
 
 // Location: Link to geocoder
 var geocoder = new MapboxGeocoder({
@@ -37,7 +40,35 @@ var geocoder = new MapboxGeocoder({
      
 document.getElementById('location').appendChild(geocoder.onAdd(map));
 
-// Styles
+map.on('load', function(e) {
+    map.on('click', function(e){
+        console.log(Object.values(e.lngLat));
+
+        if(markers.length < 3) {
+            let element = document.createElement("div");
+            element.innerHTML = "<span>"+activeEmoji+"</span>";
+
+            let marker = new mapboxgl.Marker({
+                element:element
+                })
+                .setLngLat(Object.values(e.lngLat))
+                .addTo(map);
+            
+            element.addEventListener('click', function(e) {
+                console.log("Marker remove");
+            });
+
+            markers.push(marker);
+        } else {
+            toggleSnackBar("You can't add more markers");
+        }
+      
+
+        
+    });
+});
+
+// Styles section
 var styles = document.querySelectorAll('.img');
 
 styles.forEach(style => {
@@ -117,6 +148,23 @@ function updateMapClassStyle (classStyle){
 
 
 // Emojis section
+var emojis = document.querySelectorAll(".emoji");
+emojis.forEach(emoji => {
+    emoji.addEventListener("click", function(e) {
+        let emoji = this.innerHTML;
+
+        console.log(emoji);
+
+        toggleActiveClasses(emojis, "emoji-active");
+        this.classList.add("emoji-active");
+
+        setEmoji(emoji);
+    });
+});
+
+function setEmoji(emoji) {
+    activeEmoji = emoji
+}
 
 // Cart section
 var addToCartButton = document.getElementById("cart-btn");
@@ -126,7 +174,13 @@ addToCartButton.addEventListener("click", function(e) {
 });
 
 function addToCart(item) {
-    cart.push(cart);
+    if(item.style) {
+        cart.push(cart);
+    } else {
+        // snackbar
+        toggleSnackBar("Pick a style");
+    }
+    
 }
 
 function removeItemFromCart(item) {
@@ -145,14 +199,16 @@ toggleModalBtn.addEventListener("click", function(e) {
         $('#checkout').modal('show');
     } else {
         // snackbar
+        toggleSnackBar("Your cart is empty");
 
     }
    
 });
 
 function populateCartInfoSection() {
+    cartInfoSection.innerHTML += "<p class='map-item'><b>Item</b><b>Cost</b></p>";
     cart.forEach(item => {
-        cartInfoSection.innerHTML += "<p><b>"+item.styleName+"</b></p>";
+        cartInfoSection.innerHTML += "<p clas='map-item'><b>"+item.styleName+"</b></p>";
     });
 
     
@@ -169,4 +225,17 @@ function toggleActiveClasses(elements, className) {
     elements.forEach(element => {
         element.classList.remove(className);
     });
+}
+
+// toggle snackbar
+function toggleSnackBar(message) {
+    console.log(message);
+
+    snackBar.classList.toggle('open');
+
+    snackBar.innerHTML = message;
+
+    setTimeout(function(e) {
+       snackBar.classList.toggle('open');
+    }, 3000);
 }

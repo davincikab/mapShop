@@ -6,6 +6,7 @@
     --black:#232323;
     --white:#fff;
     --gray:#8a8a8a;
+    --error:#db0404;
 }
 
 body { 
@@ -175,9 +176,44 @@ body {
 }
 
 /* Emojis section */
-.img-emoji {
-    
+.emoji {
+    cursor: pointer;
 }
+
+.emoji-active {
+    background-color: var(--error);
+    border-radius: 20%;
+    padding: 0.2em;
+}
+
+.mapboxgl-marker {
+    cursor: pointer;
+    font-size: 2em;
+}
+
+/* checkout-section */
+
+
+/* Snackbar */
+/* snackbar */
+.snackbar{
+    position: fixed;
+    bottom: 0%;
+    left: 35vw;
+    background-color: var(--error);
+    color:var(--white);
+    transition: all 0.3s linear;
+    border-radius: 5px;
+    z-index: 1000;
+    opacity: 0;
+    padding:0.2rem 1rem;
+}
+
+.snackbar.open {
+    bottom: 10%;
+    opacity: 0.9;
+}
+
 
 /* Media query */
 @media (min-width:50em) {
@@ -197,9 +233,13 @@ body {
         height: 70vh;
     }
 
-  
     .sizes .card-body .btn{
         width: 30%;
         margin:0.5em;
     }
+
+    .snackbar {
+        left: 45vw;
+    }
+
 }
