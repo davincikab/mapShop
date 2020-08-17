@@ -44,7 +44,7 @@ map.on('load', function(e) {
     map.on('click', function(e){
         console.log(Object.values(e.lngLat));
 
-        if(markers.length < 3) {
+        
             let element = document.createElement("div");
             element.innerHTML = "<span>"+activeEmoji+"</span>";
 
@@ -55,15 +55,15 @@ map.on('load', function(e) {
                 .addTo(map);
             
             element.addEventListener('click', function(e) {
+
+                console.log(this);
+                this.remove();
+
+                e.stopPropagation();
                 console.log("Marker remove");
             });
 
             markers.push(marker);
-        } else {
-            toggleSnackBar("You can't add more markers");
-        }
-      
-
         
     });
 });
