@@ -4,13 +4,16 @@ var map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/streets-v11',
     zoom: 13,
-    center: [2.330433656745072, 48.85229003055221]
+    center: [2.330433656745072, 48.85229003055221],
+    attributionControl:false
 });
 
 // change the styles
 var userSpecification = {
     size:"",
     style:"mapbox://styles/mapbox/streets-v11",
+    orientation:"Potrait",
+    scaleFactor:1,
     styleName:"streets-v11",
     cardStyle:"box",
     emojis:[],
@@ -24,14 +27,17 @@ var userSpecification = {
 };
 
 var snackBar = document.getElementById('snackbar');
+var mapSection = document.getElementById('map-section');
 var badge = document.getElementById("badge");
 var cart = [];
 var emojis = [];
 var cardStyles = {
 
 };
+
 var markers = [];
 var activeEmoji = "🗺️";
+var mapInfoContainer = document.getElementById('map-info');
 
 // Location: Link to geocoder
 var geocoder = new MapboxGeocoder({
@@ -112,18 +118,26 @@ sizes.forEach(size => {
         this.classList.add('btn-active');
 
         let txt = this.innerText.split("\n");
-        let printSize = txt[1];
         let price = txt[0];
 
-        console.log(txt);
-        updatePrintSize(printSize, price);
+        let size = this.getAttribute("data-size");
+
+        printSize = size.split(",");
+
+        let factor = this.getAttribute("data-scale");
+
+        factor = parseFloat(factor);
+
+        updatePrintSize(printSize, price, factor);        
+        rescaleMap(factor, userSpecification.orientation);
     });
 });
 
 
-function updatePrintSize(printSize, price) {
+function updatePrintSize(printSize, price, factor) {
     userSpecification.size = printSize;
     userSpecification.cost = price;
+    userSpecification.scaleFactor = factor;
 }
 
 // Description section
@@ -247,6 +261,57 @@ function toggleActiveClasses(elements, className) {
     elements.forEach(element => {
         element.classList.remove(className);
     });
+}
+
+// rescale the map
+function rescaleMap(factor, orientation) {
+    console.log(factor);
+    let size = [60, 80];
+
+    if(orientation != 'Potrait') {
+        size = size.reverse();
+    }
+
+    let height = size[1] * factor;
+    let width =  size[0] * factor;
+
+    console.log(height);
+
+    // rescale the 
+    mapSection.style.height = height + "vh";
+    mapSection.style.width = width + "%";
+
+    // mapInfoContainer.style.fontSize = size[1] /100 + "rem";
+}
+
+// change 
+let orientButton = document.querySelectorAll('.orientation');
+orientButton.forEach(button => {
+    button.addEventListener("click", function(e) {
+        let orientation = this.innerText;
+        changeMapOrientation(orientation);
+
+        toggleActiveClasses(orientButton, 'btn-active');
+        this.classList.add('btn-active');
+
+        userSpecification.orientation = orientation;
+    });
+});
+
+function changeMapOrientation(orientation) {
+   rescaleMap(
+    userSpecification.scaleFactor,
+    orientation
+   );
+}
+
+
+function priceCalculate() {
+
+}
+
+function updateLandStylePrice() {
+    
 }
 
 // toggle snackbar

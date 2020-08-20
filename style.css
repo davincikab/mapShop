@@ -21,24 +21,38 @@ body {
     -moz-box-shadow:    inset 0 0 10px #000000;
     -webkit-box-shadow: inset 0 0 10px #000000;
     box-shadow:         inset 0 0 10px #000000;
-    padding: 4em 4em !important;
+    /* padding: 2em 2em !important; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.map-section {
+    padding:0.6em;
+    border: 0.6em solid;
+    border-color: var(--primary);
+    position: relative;
+    width: 80%;
+    height:60vh; 
 }
 
 #map {  
     padding: 5px;
     /* box-shadow: 2em 2em 0.1em#fff inset; */
-    height:60vh; 
+    height:100%; 
     width: 100%; 
     background-color: #ddd;
 }
 
 .map-info {
     position: absolute;
+    left:0%;
     bottom: 0%;
-    left: 35%;
+    width: 100%;
     text-align: center;
     z-index: 1;
     font-size: 0.9rem;
+    background-color: var(--white)
 }
 
 .map-info h4 {
@@ -49,6 +63,10 @@ body {
 .map-info p {
     font-size: 1em;
     margin:0em;
+}
+
+.mapboxgl-ctrl-logo {
+    display: none !important
 }
 .container-fluid {
     padding: 0 !important;
@@ -107,11 +125,15 @@ body {
     margin-top:1em;
 }
 
-.size.btn-active {
-    background-color: var(--tertiary);
+.btn-active {
+    background-color: var(--tertiary) !important;
 }
 
 /* Styles section */
+.accordion {
+    margin-bottom:3em;
+}
+
 .styles {
     max-width: 30%;
     text-align: center;
@@ -251,18 +273,26 @@ body {
     .col-md-5 {
         padding: 0 !important;
     }
-   
+    
     .map-container {
         height: 91.5vh;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .map-section {
+        height: 60vh;
+        width: 60%;
     }
 
     #map {
-        height: 70vh;
+        height: 100%;
     }
 
     .map-info {
-        left:45%;
-        bottom: 3%;
+        left:0%;
+        bottom: 0%;
+        background-image: linear-gradient(0deg,#fff, #ffffff8a);
     }
 
     .sizes .card-body .btn{

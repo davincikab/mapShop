@@ -49,15 +49,18 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-7 map-container">
-            <div class="map-info">  
-                <h4 id="name">Magerita</h4>
-                <p id="text">HOME IS HOME</p>
-                <small id="date">12-03-14</small>
+            <div class="map-section" id="map-section">
+                <div class="map-info" id="map-info">  
+                    <h4 id="name">Magerita</h4>
+                    <p id="text">HOME IS HOME</p>
+                    <small id="date">12-03-14</small>
+                </div>
+                <div id="map"></div>
             </div>
-            <div id="map"></div>
+            
         </div>
 
-        <div class="col-md-5" id="section-options ">
+        <div class="col-md-5" id="section-options">
                 <div class="accordion" id="accordionExample">
                     <!-- Styles section -->
                     <div class="card">
@@ -145,11 +148,10 @@
                                 <!--  Orientation-->
                                 <div class="container-fluid">
                                     <h5 class="title">Orientation</h5>
-                                    <button type="button" class="btn btn-outline-secondary btn-sm orientation btn-active">Potrait</button>
+                                    <button type="button" class="btn btn-active btn-outline-secondary btn-sm orientation">Potrait</button>
                                     <button type="button" class="btn btn-outline-secondary btn-sm orientation">Land Scape</button>
                                 </div>
                                 
-
                             </div>
                         </div>
                     </div>
@@ -215,10 +217,11 @@
                         </div>
                         <div id="sizeCollapse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
                         <div class="card-body">
-                                <button type="button" class="btn btn-outline-secondary size">$ 49 <br><b>30cmx40cm</b></button>
-                                <button type="button" class="btn btn-outline-secondary size">$ 69 <br><b>50cmx70cm</b></button>
-                                <button type="button" class="btn btn-outline-secondary size">$ 79 <br><b>60cmx80cm</b></button>
+                                <button type="button" class="btn btn-outline-secondary size btn-active" data-size="30,40" data-scale="1">$ 49 <br><b>30cmx40cm</b></button>
+                                <button type="button" class="btn btn-outline-secondary size size-price" data-size="50,70" data-scale="1.05">$ 69 <br><b>50cmx70cm</b></button>
+                                <button type="button" class="btn btn-outline-secondary size size-price" data-size="60,80" data-scale="1.1">$ 79 <br><b>60cmx80cm</b></button>
 
+                                <!-- <button type="button" class="btn btn-outline-secondary size" data-size="80,80">$ 99 <br><b>80cmx80cm</b></button> -->
                                 <!-- <button type="button" class="btn btn-outline-secondary size">16:9 landscape</button> -->
                         </div>
                         </div>
