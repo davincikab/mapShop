@@ -29,6 +29,7 @@ var userSpecification = {
 var snackBar = document.getElementById('snackbar');
 var mapSection = document.getElementById('map-section');
 var badge = document.getElementById("badge");
+var priceWithSize = document.querySelectorAll(".size-price");
 var cart = [];
 var emojis = [];
 var cardStyles = {
@@ -82,6 +83,18 @@ map.on('load', function(e) {
 
             markers.push(marker);
         
+    });
+
+    map.on('moveend', function(e) {
+        let latlng = map.getCenter();
+
+        console.log(latlng);
+        var dc = document.getElementById('coordinate');
+
+        let lat = latlng.lat > 0 ? latlng.lat.toFixed(2) + '° E' : latlng.lat.toFixed(2) + '° W';
+        let lng = latlng.lng > 0 ? latlng.lng.toFixed(2) + '° N' : latlng.lng.toFixed(2) + '° S';
+
+        dc.innerHTML = '——  ' + lat + "  /  "+ lng +'  ——';
     });
 });
 
@@ -206,8 +219,11 @@ addToCartButton.addEventListener("click", function(e) {
 
 function addToCart(item) {
     if(item.style) {
-        cart.push(JSON.parse(JSON.stringify(item)));
-        badge.innerHTML = cart.length;
+        let mapItem = JSON.parse(JSON.stringify(item));
+        mapItem.id = cart.length;
+        cart.push(mapItem);
+        
+        updateCartBadge();
         
     } else {
         // snackbar
@@ -216,8 +232,15 @@ function addToCart(item) {
     
 }
 
-function removeItemFromCart(item) {
+function updateCartBadge() {
+    badge.innerHTML = cart.length;
+}
 
+function removeItemFromCart(itemId) {
+    cart = cart.filter(item => item.id != itemId);
+    populateCartInfoSection();
+
+    updateCartBadge();
 }
 
 // Display checkout section
@@ -244,9 +267,22 @@ function populateCartInfoSection() {
     cartInfoSection.innerHTML = "";
     cart.forEach(item => {
         cartInfoSection.innerHTML += "<p class='cart-item'><b>"+item.styleName+"</b><span>"+item.cost+
-            "</span><button class='btn btn-sm btn-danger w-25'>Remove</button</p>";
+            "</span><button class='btn btn-sm btn-danger w-25 cart-remove' data-id='"+item.id+"'>Remove</button</p>";
     });
 
+    // remove cart item Event method
+    removeItemEventHandler()
+}
+
+function removeItemEventHandler() {
+    let removeBtns = document.querySelectorAll('.cart-remove');
+
+    removeBtns.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            let id = this.getAttribute('data-id');
+            removeItemFromCart(parseInt(id));
+        });
+    });
     
 }
 
@@ -265,8 +301,12 @@ function toggleActiveClasses(elements, className) {
 
 // rescale the map
 function rescaleMap(factor, orientation) {
-    console.log(factor);
+    
     let size = [60, 80];
+
+    if(window.innerWidth < 670) {
+        size = orientation != 'Potrait' ? [40, 85] : [80, 60]
+    }
 
     if(orientation != 'Potrait') {
         size = size.reverse();
@@ -275,13 +315,11 @@ function rescaleMap(factor, orientation) {
     let height = size[1] * factor;
     let width =  size[0] * factor;
 
-    console.log(height);
-
     // rescale the 
     mapSection.style.height = height + "vh";
     mapSection.style.width = width + "%";
 
-    // mapInfoContainer.style.fontSize = size[1] /100 + "rem";
+    map.resize();
 }
 
 // change 
@@ -303,15 +341,30 @@ function changeMapOrientation(orientation) {
     userSpecification.scaleFactor,
     orientation
    );
+
+   priceCalculate(orientation);
 }
 
 
-function priceCalculate() {
+function priceCalculate(orientation) {
+    priceWithSize.forEach(btn => {
+        let txt = btn.innerText.match(/([0-9]{2,3}cm\w+)/g);
 
+        // recalcalute the size
+        if(orientation == 'Potrait') {
+            let price = btn.getAttribute('data-price');
+            
+            btn.innerHTML = "$ " + price +"<br><b>"+txt[0]+"</b>"
+
+        } else {
+            let price = btn.getAttribute('data-price-landscape');
+            btn.innerHTML = "$ " + price +"<br><b>"+txt[0]+"</b>"
+        }   
+    });
 }
 
 function updateLandStylePrice() {
-    
+
 }
 
 // toggle snackbar

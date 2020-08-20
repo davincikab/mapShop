@@ -65,6 +65,12 @@ body {
     margin:0em;
 }
 
+.map-info .line {
+    width: 20px;
+    height: 1px;
+    background-color: var(--black);
+    margin:0 1em;
+}
 .mapboxgl-ctrl-logo {
     display: none !important
 }
@@ -240,8 +246,9 @@ body {
 #cart-btn {
     position: fixed;
     bottom: 0%;
-    text-align: center;
+    text-align: inherit;
     color: white;
+    padding-left: 10em;
 }
 /* Snackbar */
 /* snackbar */
